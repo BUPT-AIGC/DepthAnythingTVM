@@ -19,7 +19,6 @@ import org.apache.tvm.Device;
 import org.apache.tvm.TVMValue;
 import org.apache.tvm.TVMType;
 import org.apache.tvm.contrib.GraphModule;
-//import org.apache.tvm.Base;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -135,12 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
         GraphModule runtime = null;
         try {
-//            long device_64 = deviceToInt64(cpuDev);
-//            Base._LIB.tvmFuncPushArgHandle(device_64, ArgTypeCode.DLDEVICE.ordinal());
-//            TVMValue ret = packed_fn.call();
-//            Module mod = ret.asModule();
-//            runtime = new GraphModule(mod, cpuDev);
-
             Module mod = modelLib.getFunction("default").call(cpuDev).asModule();
             runtime = new GraphModule(mod, cpuDev);
 
@@ -214,18 +207,4 @@ public class MainActivity extends AppCompatActivity {
         return (tempDir + File.separator + fileName);
     }
 
-    public static long deviceToInt64(Device dev) {
-        // Create a ByteBuffer with native byte order
-        ByteBuffer buffer = ByteBuffer.allocate(8).order(ByteOrder.nativeOrder());
-
-        // Put device_type and device_id into the buffer
-        buffer.putInt(dev.deviceType);
-        buffer.putInt(dev.deviceId);
-
-        // Reset the buffer position to the beginning
-        buffer.flip();
-
-        // Read the buffer as a long (64-bit integer)
-        return buffer.getLong();
-    }
 }
