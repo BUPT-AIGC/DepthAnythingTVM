@@ -1,0 +1,2 @@
+# DepthAnythingTVM
+一个使用TVM将DepthAnything部署到安卓上的demo
